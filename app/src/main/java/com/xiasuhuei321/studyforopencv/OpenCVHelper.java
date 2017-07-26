@@ -22,6 +22,7 @@ public class OpenCVHelper {
         int[] pixels = new int[width * height];
         // 把原始图片的所有原始像素存入数组中
         bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+        bitmap.recycle();
         // 通过jni本地方法毛玻璃化图片
         blurImage(pixels, width, height);
         // 创建一个新的图片
@@ -37,9 +38,10 @@ public class OpenCVHelper {
         int height = bitmap.getHeight();
         int[] pixels = new int[width * height];
         bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-        int[] newPixels = gray(pixels, width, height);
+        bitmap.recycle();
+        pixels = gray(pixels, width, height);
         Bitmap newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        newBitmap.setPixels(newPixels, 0, width, 0, 0, width, height);
+        newBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return newBitmap;
     }
 

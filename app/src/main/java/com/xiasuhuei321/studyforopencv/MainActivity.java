@@ -44,15 +44,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 iv_result_img.setImageBitmap(blur);
                 break;
             case R.id.bt_gray:
-                Bitmap gray = getBitmap();
-                Bitmap result = openCVHelper.gray(gray);
+                Bitmap result = openCVHelper.gray(getBitmap());
                 iv_result_img.setImageBitmap(result);
                 break;
         }
     }
 
     private Bitmap getBitmap() {
-        if (bitmap == null) {
+        if (bitmap == null || bitmap.isRecycled()) {
             bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ssm);
         }
         return bitmap;
